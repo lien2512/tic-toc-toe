@@ -29,8 +29,11 @@ export class GameService {
 
     return this.board;
   }
-  changePlayerTurn() {
-
+  changePlayerTurn(square) {
+    this.updateBoard(square);
+    if (!this.isGameOver) {
+      this.activePlayer = this.activePlayer === 'X' ? 'O' : 'X';
+    }
   }
   updateBoard(squareClicked) {
     let arrayHash = squareClicked.id.split('-');

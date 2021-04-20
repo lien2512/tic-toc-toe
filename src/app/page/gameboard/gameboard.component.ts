@@ -19,4 +19,5 @@ export class GameboardComponent implements OnInit {
     this.gameService.newGame();
     this.titleHeaderHistory = ['Player', 'Position', 'Move created'];
   }
+  
 }
