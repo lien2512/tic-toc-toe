@@ -1,0 +1,10 @@
+<div class="header">
+    <div class="title">
+        <img src="assets/images/logo.png">
+    </div>
+    <p>Tic tac toe</p>
+    <div class="account">
+        <button class="btn btn-primary" *ngIf="!userInfo" (click)="login()">Login</button>
+        <button class="btn btn-outline-success" *ngIf="userInfo">{{userInfo?.name}}</button>
+    </div>
+</div>

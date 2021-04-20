@@ -1,0 +1,31 @@
+.header {
+    display: flex;
+    position: relative;
+    padding: 5px 20px;
+    background: #01003a;
+    .title {
+        img {
+            width: 80px;
+        }
+    }
+    p {
+        margin: 20px 10px;
+        font-size: 20px;
+        font-family: cursive;
+        font-weight: 700;
+        text-align: center;
+        color: #f1f8e9;
+    }
+    .account {
+        float: right;
+        position: absolute;
+        right: 40px;
+        button {
+            background: linear-gradient(113deg, #eb088c, #ab06d8);
+          border: none;
+          color: white;
+            font-weight: 600;
+            margin-top: 16px;
+        }
+    }
+}

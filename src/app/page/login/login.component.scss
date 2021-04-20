@@ -1,0 +1,87 @@
+.login-page {
+  background-image: url("../../../assets/images/bg1-login.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  .card {
+    margin: 0 auto;
+    width: 45%;
+    background: transparent;
+    border: none;
+    .btn-clear.btn-pink {
+      color: white;
+    }
+    .modal-signup,
+    .modal-login {
+      box-shadow: 0 0 12px rgb(38 171 226 / 50%);
+      margin: 35px;
+      border-radius: 20px;
+      background-color: #01003a;
+      color: white;
+      button {
+        &.submit {
+          background: linear-gradient(113deg, #eb088c, #ab06d8);
+          border: none;
+        }
+      }
+    }
+  }
+}
+.flip-card {
+  background-color: transparent;
+  height: 500px;
+  perspective: 1000px;
+  border-radius: 0.3rem;
+  &.flip-front {
+    .flip-card-front {
+      height: 540px;
+      box-shadow: 0px 3px 13px 6px #1e1e1e;
+    }
+  }
+  &.flip-back {
+    .flip-card-back {
+      // min-height: 920px;
+      box-shadow: 0px 3px 13px 6px #1e1e1e;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+  }
+  .flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+    &.flip-next {
+      transform: rotateY(180deg);
+    }
+    &.flip-back {
+      transform: rotateY(0deg);
+    }
+  }
+  // &:hover {
+  //   .flip-card-inner {
+  //     transform: rotateY(180deg);
+  //   }
+  // }
+  .flip-card-front,
+  .flip-card-back {
+    border-radius: 0.3rem;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden; /* Safari */
+    backface-visibility: hidden;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+  }
+  .flip-card-front {
+    z-index: 9;
+  }
+  .flip-card-back {
+    // background-color: white;
+    transform: rotateY(180deg);
+    z-index: 10;
+  }
+}

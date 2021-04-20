@@ -1,0 +1,13 @@
+<div class="container row mt-5" style="margin: 0 auto;">
+    <div class="col-9 board">
+        <div *ngFor="let items of gameService.board">
+            <div *ngFor="let cell of items">
+                <app-square [square]= "cell"></app-square>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="col-3">
+        <app-table [titleHeader] = "titleHeaderHistory"></app-table>
+    </div> -->
+</div>

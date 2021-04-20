@@ -1,0 +1,35 @@
+<div class="container dashboard">
+    <div class="row">
+        <div class="col-6">
+            <div class="create-game">
+                <h5 class="text-center">Let's start</h5>
+                <form>
+                    <fieldset>
+                        <div class="form-group">
+                            <label for="disabledTextInput">Game type</label>
+                            <select id="disabledSelect" class="form-control">
+                                <option>Online</option>
+                                <option>Computer</option>
+                                <option>Competition</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="disabledSelect">Play as</label>
+                            <select id="disabledSelect" class="form-control">
+                                <option>X</option>
+                                <option>O</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary" (click)="navigateGameBoard()">Create New Game</button>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+        <div class="col-6">
+            <h5 class="text-center mb-4">Join existing game</h5>
+            <app-table [titleHeader] = "titleHeaderExistGame"></app-table>
+            <h5 class="text-center mb-4"> My Game</h5>
+            <app-table [titleHeader] = "titleHeaderMyGame"></app-table>
+        </div>
+    </div>
+</div>
