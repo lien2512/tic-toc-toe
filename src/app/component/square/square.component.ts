@@ -15,7 +15,7 @@ export class SquareComponent implements OnInit {
   ngOnInit(): void {
   }
   changePlayer(){
-    this.gameService.isGameRunning = true;
+    // this.gameService.isGameRunning = true;
     if (this.gameService.isGameRunning && this.square.state == null) {
       this.square.state = this.gameService.activePlayer;
       this.gameService.changePlayerTurn(this.square);

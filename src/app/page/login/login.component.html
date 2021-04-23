@@ -1,64 +1,119 @@
 <div class="login-page">
     <div class="card">
-        <div class="flip-card"  [ngClass]="{'flip-back': back, 'flip-front': !back}">
-            <div class="flip-card-inner"  [ngClass]="{'flip-back': back, 'flip-next' : !back}">
+        <div class="flip-card" [ngClass]="{'flip-back': back, 'flip-front': !back}">
+            <div class="flip-card-inner" [ngClass]="{'flip-back': back, 'flip-next' : !back}">
                 <div class="flip-card-front">
                     <div class="modal-login">
-                        
+
                         <div class="modal-body">
                             <form method="post" [formGroup]="formLogin">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Account</label>
-                                    <input type="email" class="form-control" id="exampleInputEmail1"
-                                        aria-describedby="emailHelp" placeholder="Enter username" formControlName="account">
+                                    <label for="Account1">Account</label>
+                                    <input type="email" class="form-control" id="Account1" aria-describedby="emailHelp"
+                                        placeholder="Enter username" formControlName="account">
+                                    <small class="text-danger error-form"
+                                        *ngIf="formLogin?.controls?.account?.errors?.required">
+                                        Vui lòng nhập tài khoản
+                                    </small>
+                                    <small class="text-danger error-form"
+                                        *ngIf="formLogin?.controls?.account?.errors?.minlength">
+                                        Tối thiểu 4 ký tự
+                                    </small>
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputPassword1">Password</label>
-                                    <input type="password" class="form-control" id="exampleInputPassword1"
-                                        placeholder="Password" formControlName="pass">
+                                    <label for="Password1">Password</label>
+                                    <input type="password" class="form-control" id="Password1" placeholder="Password"
+                                        formControlName="pass">
+                                    <small class="text-danger error-form"
+                                        *ngIf="formLogin?.controls?.pass?.errors?.required">
+                                        Vui lòng nhập mật khẩu
+                                    </small>
+                                    <small class="text-danger error-form"
+                                        *ngIf="formLogin?.controls?.pass?.errors?.minlength">
+                                        Tối thiểu 6 ký tự
+                                    </small>
                                 </div>
-                                <button type="submit" class="btn btn-primary submit">Submit</button>
+                                <button type="submit" class="btn btn-primary submit" (click)="login()">Submit</button>
                             </form>
-        
+
                         </div>
                         <div class="modal-footer">
                             <div class='box-dont-account'>
-                              <button type='button' class="btn btn-clear btn-pink" (click)="back = !back">Bạn chưa có tài khoản</button>
+                                <button type='button' class="btn btn-clear btn-pink" (click)="back = !back">Bạn chưa có
+                                    tài khoản</button>
                             </div>
-                          </div>
-        
+                        </div>
+
                     </div>
                 </div>
                 <div class="flip-card-back">
                     <div class="modal-signup">
-                        
+
                         <div class="modal-body">
                             <form method="post" [formGroup]="formSignUp">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Account</label>
-                                    <input type="email" class="form-control" id="exampleInputEmail1"
-                                        aria-describedby="emailHelp" placeholder="Enter username" formControlName="account">
+                                    <label for="Email2">Email</label>
+                                    <input type="email" class="form-control" id="Email2" aria-describedby="emailHelp"
+                                        placeholder="Enter email" formControlName="email">
+                                    <small class="text-danger error-form"
+                                        *ngIf=" formSignUp?.controls?.email?.touched &&  formSignUp?.controls?.email?.errors?.required ">
+                                        Vui lòng nhập email
+                                    </small>
+                                    <small class="text-danger error-form"
+                                        *ngIf="formSignUp?.controls?.email?.errors?.pattern">
+                                        Email không hợp lệ
+                                    </small>
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputPassword1">Password</label>
-                                    <input type="password" class="form-control" id="exampleInputPassword1"
-                                        placeholder="Password" formControlName="pass">
+                                    <label for="Account2">Account</label>
+                                    <input type="email" class="form-control" id="Account2" aria-describedby="emailHelp"
+                                        placeholder="Enter username" formControlName="account">
+                                    <small class="text-danger error-form"
+                                        *ngIf=" formSignUp?.controls?.account?.touched &&  formSignUp?.controls?.account?.errors?.required ">
+                                        Vui lòng nhập tài khoản
+                                    </small>
+                                    <small class="text-danger error-form"
+                                        *ngIf="formSignUp?.controls?.account?.errors?.minlength">
+                                        Tối thiểu 4 ký tự
+                                    </small>
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputPassword2">Re-Password</label>
-                                    <input type="password" class="form-control" id="exampleInputPassword2"
-                                        placeholder="Re-Password"formControlName="repass">
+                                    <label for="Password2">Password</label>
+                                    <input type="password" class="form-control" id="Password2" placeholder="Password"
+                                        formControlName="pass">
+                                    <small class="text-danger error-form"
+                                        *ngIf=" formSignUp?.controls?.pass?.touched &&  formSignUp?.controls?.pass?.errors?.required ">
+                                        Vui lòng nhập mật khẩu
+                                    </small>
+                                    <small class="text-danger error-form"
+                                        *ngIf="formSignUp?.controls?.pass?.errors?.minlength">
+                                        Tối thiểu 6 ký tự
+                                    </small>
                                 </div>
-                                <button type="submit" class="btn btn-primary submit">Submit</button>
+                                <div class="form-group">
+                                    <label for="rePassword2">Re-Password</label>
+                                    <input type="password" class="form-control" id="rePassword2"
+                                        placeholder="Re-Password" formControlName="repass">
+                                    <small class="text-danger error-form"
+                                        *ngIf="formSignUp?.controls?.repass?.errors?.required">
+                                        Vui lòng nhập mật khẩu xác nhận
+                                    </small>
+                                    <small class="text-danger error-form"
+                                        *ngIf="formSignUp?.hasError('invalidConfirmPassword') && formSignUp?.controls?.repass?.touched && !formSignUp?.controls?.repass?.errors?.required">
+                                        Mật khẩu xác nhận không hợp lệ
+                                    </small>
+                                </div>
+                                <button type="submit" class="btn btn-primary submit" (click)="signUp()">Submit</button>
                             </form>
-        
+
                         </div>
                         <div class="modal-footer">
                             <div class='box-dont-account'>
-                                <button type='button' class="btn btn-clear btn-pink" (click)="back = true">Đăng nhập</button>
-                              </div>
+                                <button type='button' class="btn btn-clear btn-pink" (click)="back = true; ">Đăng
+                                    nhập</button>
+                            </div>
                         </div>
-        
+
                     </div>
                 </div>
             </div>
