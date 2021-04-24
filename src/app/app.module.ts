@@ -12,6 +12,7 @@ import { MainComponent } from './layout/main/main.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SquareComponent } from './component/square/square.component';
 import { ToastrModule } from 'ngx-toastr';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { ToastrModule } from 'ngx-toastr';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     ToastrModule.forRoot(),
   ],
   providers: [],

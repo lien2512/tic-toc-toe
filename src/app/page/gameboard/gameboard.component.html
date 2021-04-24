@@ -1,10 +1,15 @@
-<div class="container row mt-5" style="margin: 0 auto;">
+<div class="container  mt-5" style="margin: 0 auto;">
     <div class="col-9 board">
         <div *ngFor="let items of gameService.board">
             <div *ngFor="let cell of items">
                 <app-square [square]= "cell"></app-square>
             </div>
         </div>
+        
+    </div>
+    <div class="info ">
+        <button class="btn btn-success" *ngIf="gameService.winner">{{gameService.winner}}</button>
+        <button class="btn btn-primary" *ngIf="gameService.isWin" (click)="reset()">Reset</button>
     </div>
 
     <!-- <div class="col-3">

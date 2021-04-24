@@ -8,14 +8,16 @@ export class GameService {
   activePlayer: string = 'X';
   isGameRunning: boolean = false;
   isGameOver: boolean = false;
-  winner: boolean = false;
+  isWin: boolean = false;
+  winner: any ;
   size = 10;
   constructor() { }
   newGame() {
     this.activePlayer = 'X';
     this.isGameRunning = true;
     this.isGameOver = false;
-    this.winner = false;
+    this.isWin = false;
+    this.winner = null;
     this.board = this.createBoardGames();
   }
   createBoardGames() {
@@ -35,7 +37,16 @@ export class GameService {
       this.activePlayer = this.activePlayer === 'X' ? 'O' : 'X';
       this.isGameRunning = true;
       setTimeout(()=> {
-        this.checkWin(square);
+        if (this.checkIsWin(square)) {
+          alert('hahahaha');
+          this.winner = square.state + ' win';
+          this.isWin = true;
+          this.isGameOver = true;
+          this.isGameRunning = false;
+        } else {
+          this.isGameOver = false;
+          this.isGameRunning = true;
+        }
       }, 0)
     } else {
       return;
@@ -45,50 +56,82 @@ export class GameService {
     let arrayHash = squareClicked.id.split('-');
     this.board[parseInt(arrayHash[0])][parseInt(arrayHash[1])].state = squareClicked.state
   }
-  checkWin(squareClicked) {
+  checkIsWin(squareClicked) {
+    debugger;
     let arrayHash = squareClicked.id.split('-');
-    let column = this.board[parseInt(arrayHash[0])];
-    let row = this.board.map(x => x[parseInt(arrayHash[1])]);
-    if (this.checkRow(row, squareClicked) || this.checkRow(column, squareClicked)) {
-      alert('hahahaha');
-      this.isGameOver = true;
-      this.isGameRunning = false;
-    }
-  }
-  checkArrayHL(arr) {
-    let count = 0;
-    for(let i = 0; i < arr.length - 1; i++) {
-      if (arr[i+1] - arr[i] == 1) {
-        count ++
-        if (count == 4) {
-          return true;
-        }
-      } else {
-        return false;
+    const i = parseInt(arrayHash[0]);
+    const j = parseInt(arrayHash[1]);
+
+		let count = 0, column = i, row;
+		// kiểm tra hàng
+		while (this.board[column][j].state == this.board[i][j].state) {
+			count++;
+			column++;
+		}
+		column = i >= 1 ? i - 1 : 0;
+		while (this.board[column][j].state == this.board[i][j].state) {
+			count++;
+			column--;
+      if (column < 0) {
+        break;
       }
+		}
+		if (count > 4) return true;
+		count = 0; row = j;
+		// kiểm tra cột
+		while(this.board[i][row].state == this.board[i][j].state) {
+			count++;
+			row++;
+		}
+		row = j >= 1 ? j - 1 : 0;
+		while(this.board[i][row].state == this.board[i][j].state) {
+			count++;
+      row --;
+      if (row < 0) {
+        break;
+      }	
     }
-    
-  }
-  checkRow(arr, squareClicked) {
-    let ar = [];
-    for (let j = 0; j < arr.length; j ++) {
-      if (arr[j].state == squareClicked.state) {
-        ar.push(j)
+		if (count > 4) return true;
+		// kiểm tra đường chéo 1
+		row = i; column = j; count = 0;
+		while (this.board[i][j].state == this.board[row][column].state) {
+			count++;
+			row++;
+			column++;
+		}
+		row = i >= 1 ? i - 1 : 0; column = j >= 1 ?  j - 1 : 0;
+		while (this.board[i][j].state == this.board[row][column].state) {
+			count++;
+			row--;
+			column--;
+      if (row < 0 || column < 0) {
+        break;
       }
-    }
-    if ( this.checkArrayHL(ar)) {
-      return true;
-    }
-  }
-  checkDiag(squareClicked) {
-    let arr = [];
-    for (let i = 0; i < this.size; i++)
-    {
-      for( let j = 0; j < this.size; j ++) {
-        
+		}
+		if (count > 4) return true;
+		// kiểm tra đường chéo 2
+		row = i; column = j; count = 0;
+		while (this.board[i][j].state == this.board[row][column].state) {
+			count++;
+			row++;
+			column--;
+      if (column < 0) {
+        break;
       }
-    }
-  }
+		}
+		row =i >= 1 ?  i - 1 : 0; column = j + 1; 
+		while (this.board[i][j].state == this.board[row][column].state) {
+			count++;
+			row--;
+			column++;
+      if (row < 0 ) {
+        break;
+      }
+		}
+		if (count > 4) return true;
+		// nếu không đương chéo nào thỏa mãn thì trả về false.
+		return false;
+	}
   
 
 }
