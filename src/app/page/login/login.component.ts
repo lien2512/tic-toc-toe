@@ -27,8 +27,8 @@ export class LoginComponent implements OnInit {
   }
   initForm() {
     this.formLogin = this.fb.group({
-      account: ['', [Validators.required, Validators.minLength(4)]],
-      pass: ['', [Validators.required, Validators.minLength(6)]]
+      userName: ['', [Validators.required, Validators.minLength(4)]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
     })
     this.formSignUp = this.fb.group({
       email: ['email', [Validators.email, Validators.required, Validators.pattern(this.emailPattern)]],
@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
     })
   }
   checkConfirmPassword(group: FormGroup) {
-    const password = group.get('pass').value;
+    const password = group.get('password').value;
     const confirmPassword = group.get('repass').value;
 
     return password === confirmPassword ? true : { invalidConfirmPassword: true };
@@ -54,10 +54,10 @@ export class LoginComponent implements OnInit {
     if (this.formLogin.invalid) {
       return false;
     } else {
-      this.apiService.login(JSON.stringify(this.formLogin.value)).subscribe(() => {
+      this.apiService.login(this.formLogin.value).subscribe(() => {
         
       })
-      if (this.formLogin.get('account').value == 'admin' && this.formLogin.get('pass').value == "admin123")
+      if (this.formLogin.get('userName').value == 'admin' && this.formLogin.get('password').value == "admin123")
       {
         console.log('1111');
         this.helperService.showSuccess('hhhhhhhhhh', 'Login Successfully')
@@ -66,12 +66,17 @@ export class LoginComponent implements OnInit {
     
   }
   signUp() {
+    debugger;
     this.helperService.markFormGroupTouched(this.formSignUp);
     if (this.formSignUp.invalid) {
       return false
     } else {
-      this.formSignUp.removeControl('repass');
-      this.apiService.signUp(JSON.stringify(this.formSignUp.value)).subscribe(() => {
+      let data = {
+        userName: this.formSignUp.get('userName').value,
+        email: this.formSignUp.get('email').value,
+        password: this.formSignUp.get('password').value
+      }
+      this.apiService.signUp(data).subscribe(() => {
         
       })
     }

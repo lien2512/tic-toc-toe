@@ -10,26 +10,26 @@
                                 <div class="form-group">
                                     <label for="Account1">Account</label>
                                     <input type="email" class="form-control" id="Account1" aria-describedby="emailHelp"
-                                        placeholder="Enter username" formControlName="account">
+                                        placeholder="Enter username" formControlName="userName">
                                     <small class="text-danger error-form"
-                                        *ngIf="formLogin?.controls?.account?.errors?.required">
+                                        *ngIf="formLogin?.controls?.userName?.errors?.required">
                                         Vui lòng nhập tài khoản
                                     </small>
                                     <small class="text-danger error-form"
-                                        *ngIf="formLogin?.controls?.account?.errors?.minlength">
+                                        *ngIf="formLogin?.controls?.userName?.errors?.minlength">
                                         Tối thiểu 4 ký tự
                                     </small>
                                 </div>
                                 <div class="form-group">
                                     <label for="Password1">Password</label>
                                     <input type="password" class="form-control" id="Password1" placeholder="Password"
-                                        formControlName="pass">
+                                        formControlName="password">
                                     <small class="text-danger error-form"
-                                        *ngIf="formLogin?.controls?.pass?.errors?.required">
+                                        *ngIf="formLogin?.controls?.password?.errors?.required">
                                         Vui lòng nhập mật khẩu
                                     </small>
                                     <small class="text-danger error-form"
-                                        *ngIf="formLogin?.controls?.pass?.errors?.minlength">
+                                        *ngIf="formLogin?.controls?.password?.errors?.minlength">
                                         Tối thiểu 6 ký tự
                                     </small>
                                 </div>
