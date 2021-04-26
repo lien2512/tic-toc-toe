@@ -9,10 +9,12 @@ import { GameboardComponent } from './page/gameboard/gameboard.component';
 import { HeaderComponent } from './component/header/header.component';
 import { TableComponent } from './component/table/table.component';
 import { MainComponent } from './layout/main/main.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SquareComponent } from './component/square/square.component';
 import { ToastrModule } from 'ngx-toastr';
 import { HttpClientModule } from '@angular/common/http';
+import { PopupconfirmComponent } from './component/popupconfirm/popupconfirm.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { HttpClientModule } from '@angular/common/http';
     HeaderComponent,
     TableComponent,
     SquareComponent,
-    MainComponent
+    MainComponent,
+    PopupconfirmComponent
   ],
   imports: [
     BrowserModule,
@@ -33,6 +36,7 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserAnimationsModule,
     HttpClientModule,
     ToastrModule.forRoot(),
+    ModalModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

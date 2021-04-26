@@ -13,4 +13,8 @@ export class ApiService {
     const url = `${environment.apiURL}login`;
     return this.httpClient.post(url, data);
   }
+  createGame(data: any) {
+    const url = `${environment.apiURL}game/new`;
+    return this.httpClient.post(url, data);
+  }
 }

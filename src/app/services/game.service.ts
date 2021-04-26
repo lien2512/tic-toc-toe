@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { PopupconfirmComponent } from '../component/popupconfirm/popupconfirm.component';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +13,10 @@ export class GameService {
   isWin: boolean = false;
   winner: any ;
   size = 10;
-  constructor() { }
+  popupModal: BsModalRef
+  constructor(
+    private modalService: BsModalService
+  ) { }
   newGame() {
     this.activePlayer = 'X';
     this.isGameRunning = true;
@@ -38,7 +43,17 @@ export class GameService {
       this.isGameRunning = true;
       setTimeout(()=> {
         if (this.checkIsWin(square)) {
-          alert('hahahaha');
+          this.popupModal = this.modalService.show(PopupconfirmComponent, {
+            class: 'modal-default',
+            initialState: {
+              confirmTitle: 'Winner',
+              textDetail: 'Winner is '+ square.state 
+            }
+
+          })
+          this.popupModal.content.onCancel.subscribe(() => {
+            this.popupModal.hide();
+        });
           this.winner = square.state + ' win';
           this.isWin = true;
           this.isGameOver = true;

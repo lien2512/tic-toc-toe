@@ -32,8 +32,8 @@ export class LoginComponent implements OnInit {
     })
     this.formSignUp = this.fb.group({
       email: ['email', [Validators.email, Validators.required, Validators.pattern(this.emailPattern)]],
-      account: ['', [Validators.required, Validators.minLength(4)]],
-      pass: ['', [Validators.required, Validators.minLength(6)]],
+      userName: ['', [Validators.required, Validators.minLength(4)]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
       repass: ['', Validators.required],
     }, 
     {
@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
     if (this.formLogin.invalid) {
       return false;
     } else {
-      this.apiService.login(this.formLogin.value).subscribe(() => {
+      this.apiService.login(JSON.stringify(this.formLogin.value)).subscribe(() => {
         
       })
       if (this.formLogin.get('account').value == 'admin' && this.formLogin.get('pass').value == "admin123")
@@ -69,6 +69,11 @@ export class LoginComponent implements OnInit {
     this.helperService.markFormGroupTouched(this.formSignUp);
     if (this.formSignUp.invalid) {
       return false
+    } else {
+      this.formSignUp.removeControl('repass');
+      this.apiService.login(JSON.stringify(this.formSignUp.value)).subscribe(() => {
+        
+      })
     }
   }
 
