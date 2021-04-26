@@ -17,4 +17,8 @@ export class ApiService {
     const url = `${environment.apiURL}game/new`;
     return this.httpClient.post(url, data);
   }
+  signUp(data) {
+    const url = `${environment.apiURL}registration`;
+    return this.httpClient.post(url, data);
+  }
 }

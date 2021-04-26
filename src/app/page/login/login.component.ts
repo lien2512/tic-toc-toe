@@ -71,7 +71,7 @@ export class LoginComponent implements OnInit {
       return false
     } else {
       this.formSignUp.removeControl('repass');
-      this.apiService.login(JSON.stringify(this.formSignUp.value)).subscribe(() => {
+      this.apiService.signUp(JSON.stringify(this.formSignUp.value)).subscribe(() => {
         
       })
     }
