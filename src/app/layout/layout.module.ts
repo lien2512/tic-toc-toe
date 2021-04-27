@@ -16,7 +16,8 @@ import { GameboardComponent } from '../page/gameboard/gameboard.component';
       path: '', component: MainComponent, children: [
         {path: 'login', component: LoginComponent},
         {path: '', component: DashboardComponent},
-        {path: 'play/:name', component: GameboardComponent}
+        {path: 'play/:name', component: GameboardComponent},
+        {path: 'play/new/:id', component: GameboardComponent}
       ]
     }])
   ]

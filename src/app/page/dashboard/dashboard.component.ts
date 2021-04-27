@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
+import { GameService } from 'src/app/services/game.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,7 +17,8 @@ titleHeaderExistGame: any = [];
   errorText: any;
   constructor(
     private router : Router,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private gameService: GameService
   ) { }
 
   ngOnInit(): void {
@@ -38,6 +40,7 @@ titleHeaderExistGame: any = [];
     } else {
       switch (this.gameType) {
         case 'offline': 
+        this.gameService.gameType = this.gameType;
         this.router.navigate(['/play', this.gameType]);
         break;
         default:
@@ -46,8 +49,11 @@ titleHeaderExistGame: any = [];
             gameType: this.gameType,
             piece: this.playAs
           }
-        this.apiService.createGame(JSON.stringify(dataGame)).subscribe(() =>{
-
+        this.apiService.createGame(dataGame).subscribe((res: any) =>{
+          if (res.firstPlayerId) {
+            this.gameService.gameType = this.gameType;
+            this.router.navigate(['/new', {queryParams: {id: res.id}}]);
+          }
         })
       }
       

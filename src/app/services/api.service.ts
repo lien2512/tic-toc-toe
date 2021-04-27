@@ -21,4 +21,8 @@ export class ApiService {
     const url = `${environment.apiURL}registration`;
     return this.httpClient.post(url, data);
   }
+  move(data) {
+    const url = `${environment.apiURL}move`;
+    return this.httpClient.post(url, data);
+  }
 }

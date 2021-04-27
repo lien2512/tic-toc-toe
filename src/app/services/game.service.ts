@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { PopupconfirmComponent } from '../component/popupconfirm/popupconfirm.component';
+import { ApiService } from './api.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +15,14 @@ export class GameService {
   isWin: boolean = false;
   winner: any ;
   size = 10;
+  gameType: string;
+  gameId: any;
   popupModal: BsModalRef
   constructor(
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private apiService: ApiService,
+    private activatedRoute: ActivatedRoute
+
   ) { }
   newGame() {
     this.activePlayer = 'X';
@@ -36,36 +43,53 @@ export class GameService {
 
     return this.board;
   }
-  changePlayerTurn(square) {
+  changePlayerTurn(square, id?) {
     if (!this.isGameOver) {
-      this.updateBoard(square);
-      this.activePlayer = this.activePlayer === 'X' ? 'O' : 'X';
-      this.isGameRunning = true;
-      setTimeout(()=> {
-        if (this.checkIsWin(square)) {
-          this.popupModal = this.modalService.show(PopupconfirmComponent, {
-            class: 'modal-default',
-            initialState: {
-              confirmTitle: 'Winner',
-              textDetail: 'Winner is '+ square.state 
-            }
-
-          })
-          this.popupModal.content.onCancel.subscribe(() => {
-            this.popupModal.hide();
-        });
-          this.winner = square.state + ' win';
-          this.isWin = true;
-          this.isGameOver = true;
-          this.isGameRunning = false;
-        } else {
-          this.isGameOver = false;
-          this.isGameRunning = true;
+      if (this.gameType == 'offline') {
+        this.playOffline(square);
+      } else if (this.gameType == 'COMPETITiON'){
+        let idSquare = square.id.split('-')
+        let data = {
+          boardColumn: idSquare[0],
+          boardRow: idSquare[1],
+          playerId: 2,
+          gameId: id
         }
-      }, 0)
+        this.apiService.move(data).subscribe((res: any) => {
+
+        })
+      }
+      
     } else {
       return;
     }
+  }
+  playOffline(square) {
+    this.updateBoard(square);
+    this.activePlayer = this.activePlayer === 'X' ? 'O' : 'X';
+    this.isGameRunning = true;
+    setTimeout(()=> {
+      if (this.checkIsWin(square)) {
+        this.popupModal = this.modalService.show(PopupconfirmComponent, {
+          class: 'modal-default',
+          initialState: {
+            confirmTitle: 'Winner',
+            textDetail: 'Winner is '+ square.state 
+          }
+
+        })
+        this.popupModal.content.onCancel.subscribe(() => {
+          this.popupModal.hide();
+      });
+        this.winner = square.state + ' win';
+        this.isWin = true;
+        this.isGameOver = true;
+        this.isGameRunning = false;
+      } else {
+        this.isGameOver = false;
+        this.isGameRunning = true;
+      }
+    }, 0)
   }
   updateBoard(squareClicked) {
     let arrayHash = squareClicked.id.split('-');
