@@ -25,4 +25,8 @@ export class ApiService {
     const url = `${environment.apiURL}move`;
     return this.httpClient.post(url, data);
   }
+  createAuto() {
+    const url = `${environment.apiURL}move/auto`;
+    return this.httpClient.get(url);
+  }
 }

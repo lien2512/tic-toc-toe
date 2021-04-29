@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { PopupconfirmComponent } from '../component/popupconfirm/popupconfirm.component';
 import { ApiService } from './api.service';
-
+import * as async from "async";
 @Injectable({
   providedIn: 'root'
 })
@@ -25,7 +25,6 @@ export class GameService {
 
   ) { }
   newGame() {
-    this.activePlayer = 'X';
     this.isGameRunning = true;
     this.isGameOver = false;
     this.isWin = false;
@@ -55,9 +54,22 @@ export class GameService {
           playerId: 2,
           gameId: id
         }
-        this.apiService.move(data).subscribe((res: any) => {
+        async.waterfall([
+          (cb) => {
+            this.apiService.move(data).subscribe((res: any) => {
+              
+          },(error) => {
+            return cb();
+          })
+          },
+          (cb) => {
+            this.apiService.createAuto().subscribe((res: any) => {
 
-        })
+            },(error) => {
+              return cb();
+            })
+          }
+        ])
       }
       
     } else {

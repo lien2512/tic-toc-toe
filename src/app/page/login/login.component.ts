@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ApiService } from 'src/app/services/api.service';
 import { HelperService } from 'src/app/services/helper.service';
@@ -19,7 +20,8 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private helperService: HelperService,
     private toastr: ToastrService,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -54,14 +56,14 @@ export class LoginComponent implements OnInit {
     if (this.formLogin.invalid) {
       return false;
     } else {
-      this.apiService.login(this.formLogin.value).subscribe(() => {
-        
+      this.apiService.login(this.formLogin.value).subscribe((res:any) => {
+        if (res) {
+          this.router.navigate(['']);
+        }
+      }, (err) => {
+        alert("APi lỗi rồi !")
       })
-      if (this.formLogin.get('userName').value == 'admin' && this.formLogin.get('password').value == "admin123")
-      {
-        console.log('1111');
-        this.helperService.showSuccess('hhhhhhhhhh', 'Login Successfully')
-      }
+     
     }
     
   }

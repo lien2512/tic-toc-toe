@@ -38,9 +38,10 @@ titleHeaderExistGame: any = [];
         this.errorText = 'Vui lòng chọn game';
         return;
     } else {
+      this.gameService.gameType = this.gameType;
+      this.gameService.activePlayer = this.playAs;
       switch (this.gameType) {
         case 'offline': 
-        this.gameService.gameType = this.gameType;
         this.router.navigate(['/play', this.gameType]);
         break;
         default:
@@ -51,7 +52,6 @@ titleHeaderExistGame: any = [];
           }
         this.apiService.createGame(dataGame).subscribe((res: any) =>{
           if (res.firstPlayerId) {
-            this.gameService.gameType = this.gameType;
             this.router.navigate(['/new', {queryParams: {id: res.id}}]);
           }
         })
