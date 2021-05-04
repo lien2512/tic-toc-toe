@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { ApiService } from 'src/app/services/api.service';
 import { GameService } from 'src/app/services/game.service';
+import { SubjectService } from 'src/app/services/subject.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,10 +17,13 @@ titleHeaderExistGame: any = [];
   playAs: any;
   name: any;
   errorText: any;
+  userInfo: any;
   constructor(
     private router : Router,
     private apiService: ApiService,
-    private gameService: GameService
+    private gameService: GameService,
+    private subjectService: SubjectService,
+    private cookie: CookieService
   ) { }
 
   ngOnInit(): void {
@@ -26,6 +31,12 @@ titleHeaderExistGame: any = [];
       'Started player', 'Game status', 'Created', 'Action'
     ]
     this.titleHeaderMyGame = ['Started player', 'Second player', 'Status', 'Created', 'Action']
+    this.subjectService.userInfo.subscribe((res: any) => {
+      this.userInfo = res;
+      if (!this.userInfo && this.cookie.get('user_info')) {
+        this.userInfo = JSON.parse(this.cookie.get('user_info'));
+      }
+    })
   }
   changeGame() {
     debugger;
@@ -46,7 +57,7 @@ titleHeaderExistGame: any = [];
         break;
         default:
           let dataGame = {
-            firstPlayerId: 2,
+            firstPlayerId: this.userInfo.id,
             gameType: this.gameType,
             piece: this.playAs
           }

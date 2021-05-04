@@ -30,6 +30,7 @@ export class HeaderComponent implements OnInit {
   logout() {
     this.cookie.delete('user_info', '/');
     this.subjectService.userInfo.next(null);
+    this.router.navigate(['/login']);
   }
 
 }
