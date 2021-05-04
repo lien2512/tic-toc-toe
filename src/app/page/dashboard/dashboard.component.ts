@@ -4,6 +4,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { ApiService } from 'src/app/services/api.service';
 import { GameService } from 'src/app/services/game.service';
 import { SubjectService } from 'src/app/services/subject.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-dashboard',
@@ -77,6 +78,12 @@ titleHeaderExistGame: any = [];
     this.apiService.getList().subscribe((res) => {
       console.log(res);
       this.listGameExisting = res;
+      this.listGameExisting.forEach(element => {
+        if (element.gameStatus == 'WAITS_FOR_PLAYER') {
+          element.gameStatus = 'Wait for player'
+        }
+        element.createAt = moment(element.createAt).format('YYYY-MM-DD HH:mm:00');
+      });
     })
   }
 

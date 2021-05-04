@@ -7,9 +7,10 @@
     <tbody>
       <tr *ngFor="let items of listData;let i = index">
         <th scope="row">{{i + 1}}</th>
-        <td>{{items}}</td>
-        <td>{{items}}</td>
-        <td>{{items}}</td>     
+        <td>{{items.firstPlayerId}}</td>
+        <td>{{items.gameStatus}}</td>
+        <td>{{items.createAt}}</td>   
+        <td (click)="join()">Join</td>       
       </tr>
     </tbody>
   </table>
