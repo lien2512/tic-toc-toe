@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { ApiService } from 'src/app/services/api.service';
 import { HelperService } from 'src/app/services/helper.service';
+import { SubjectService } from 'src/app/services/subject.service';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +23,9 @@ export class LoginComponent implements OnInit {
     private helperService: HelperService,
     private toastr: ToastrService,
     private apiService: ApiService,
-    private router: Router
+    private router: Router,
+    private cookie: CookieService,
+    private subjectService: SubjectService
   ) { }
 
   ngOnInit(): void {
@@ -57,11 +61,14 @@ export class LoginComponent implements OnInit {
       return false;
     } else {
       this.apiService.login(this.formLogin.value).subscribe((res:any) => {
-        if (res) {
+        if (res.httpCode == '200') {
+          this.loginSuccess(res)
           this.router.navigate(['']);
+        } else if(res.httpCode == '500'){
+          alert("Tài khoản chưa tồn tại")
         }
       }, (err) => {
-        alert("APi lỗi rồi !")
+        alert("Đăng nhập thất bại !")
       })
      
     }
@@ -82,6 +89,17 @@ export class LoginComponent implements OnInit {
         
       })
     }
+  }
+  loginSuccess(res) {
+    const userInfo = res.player;
+    localStorage.setItem('user_info', JSON.stringify({
+      data: userInfo
+    }));
+    this.cookie.set('user_info', JSON.stringify(userInfo), 365, '/');
+    this.closeLoginModal();
+    setTimeout(() => {
+      this.subjectService.userInfo.next(userInfo);
+    }, 200);
   }
 
 }
