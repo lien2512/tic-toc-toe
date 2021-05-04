@@ -18,6 +18,7 @@ titleHeaderExistGame: any = [];
   name: any;
   errorText: any;
   userInfo: any;
+  listGameExisting: any;
   constructor(
     private router : Router,
     private apiService: ApiService,
@@ -37,6 +38,7 @@ titleHeaderExistGame: any = [];
         this.userInfo = JSON.parse(this.cookie.get('user_info'));
       }
     })
+    this.getListExistingGame();
   }
   changeGame() {
     debugger;
@@ -70,6 +72,12 @@ titleHeaderExistGame: any = [];
       
     }
     
+  }
+  getListExistingGame() {
+    this.apiService.getList().subscribe((res) => {
+      console.log(res);
+      this.listGameExisting = res;
+    })
   }
 
 }

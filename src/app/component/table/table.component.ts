@@ -7,6 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class TableComponent implements OnInit {
   @Input() titleHeader: any;
+  @Input() listData: any;
   // titleHeaderExistGame: any = [];
   // titleHeaderMyGame: any = [];
   constructor() { }

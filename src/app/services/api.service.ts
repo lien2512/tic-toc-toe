@@ -29,4 +29,8 @@ export class ApiService {
     const url = `${environment.apiURL}move/auto`;
     return this.httpClient.get(url);
   }
+  getList() {
+    const url = `${environment.apiURL}game/list`;
+    return this.httpClient.get(url);
+  }
 }

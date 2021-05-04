@@ -26,12 +26,12 @@
 
                 </form>
             </div>
-        </div>
+    </div>
         <div class="col-6">
             <h5 class="text-center mb-4">Join existing game</h5>
-            <app-table [titleHeader] = "titleHeaderExistGame"></app-table>
-            <h5 class="text-center mb-4"> My Game</h5>
-            <app-table [titleHeader] = "titleHeaderMyGame"></app-table>
+            <app-table [titleHeader] = "titleHeaderExistGame" [listData] = "listGameExisting"></app-table>
+            <!-- <h5 class="text-center mb-4"> My Game</h5>
+            <app-table [titleHeader] = "titleHeaderMyGame" [listData] = ""></app-table> -->
         </div>
     </div>
 </div>
